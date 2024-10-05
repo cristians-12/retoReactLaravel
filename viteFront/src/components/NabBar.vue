@@ -7,7 +7,7 @@
         <div class="font-extrabold">
             Logo
         </div>
-        <div>
+        <div class="cursor-pointer">
             Mis notas
         </div>
     </div>
