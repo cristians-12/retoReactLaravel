@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="flex bg-amber-600 text-white justify-between px-10 py-5" >
+    <div class="flex bg-amber-600 text-white justify-between fixed w-screen px-10 py-5" >
         <div class="font-extrabold">
             Logo
         </div>

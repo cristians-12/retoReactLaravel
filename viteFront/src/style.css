@@ -15,4 +15,21 @@
 
 body {
   font-family: "Satoshi";
+  background-color:#ffaf99;
+  background-image:
+  radial-gradient(at 33% 7%, hsla(80,96%,72%,1) 0px, transparent 50%),
+  radial-gradient(at 26% 20%, hsla(35,63%,68%,1) 0px, transparent 50%),
+  radial-gradient(at 94% 10%, hsla(42,69%,61%,1) 0px, transparent 50%),
+  radial-gradient(at 76% 92%, hsla(52,92%,65%,1) 0px, transparent 50%),
+  radial-gradient(at 7% 33%, hsla(148,98%,72%,1) 0px, transparent 50%),
+  radial-gradient(at 0% 51%, hsla(32,94%,71%,1) 0px, transparent 50%),
+  radial-gradient(at 27% 96%, hsla(183,63%,68%,1) 0px, transparent 50%);
+}
+
+*{
+  transition: all ease-in-out 0.15s;
+}
+
+.juan{
+  border: 1px solid red;
 }
