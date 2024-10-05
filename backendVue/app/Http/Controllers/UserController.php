@@ -36,7 +36,7 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found', 'success' => false], 404);
         }
 
-        if ($request->name && $request->password && $request->name) {
+        if ($request->name && $request->password && $request->email) {
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
