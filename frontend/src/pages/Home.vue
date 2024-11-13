@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from "vue";
-import NavBar from "../components/NabBar.vue";
-
+import NavBar from "../components/NavBar.vue";
 let user = ref(null);
+
 </script>
 
 <template>
@@ -32,6 +32,7 @@ let user = ref(null);
           Guardar nota
         </div>
       </div>
+      
     </div>
   </div>
 </template>
