@@ -1,13 +1,13 @@
-import { create } from "zustand";
+import { defineStore } from "pinia";
+import { computed, ref } from "vue";
 
-interface UserStore {
-  isLogged: boolean;
-  setLogin: () => void;
-}
+export const useCounterStore = defineStore("counter", () => {
+  const isLogged = ref(false);
+  const name = ref("Eduardo");
+  // const doubleCount = computed(() => count.value * 2)
+  // function increment() {
+  //   count.value++
+  // }
 
-const useUserStore = create<UserStore>((set) => ({
-  isLogged: false,
-  setLogin: () => set((state) => ({ isLogged: true })),
-}));
-
-export default useUserStore;
+  return { name, isLogged };
+});

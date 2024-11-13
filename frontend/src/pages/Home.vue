@@ -1,38 +1,24 @@
 <script setup>
 import { ref } from "vue";
 import NavBar from "../components/NavBar.vue";
-let user = ref(null);
+import { useCounterStore } from "../store/user/userStore";
+import { storeToRefs } from "pinia";
+import AddNoteModal from "../components/AddNoteModal.vue";
 
+const store = useCounterStore();
+const { isLogged } = storeToRefs(store);
 </script>
 
 <template>
   <div class="h-screen">
     <NavBar />
-    <div
-      class="flex h-screen w-full justify-center flex-col items-center"
-    >
-      <div class="backdrop-blur-md bg-yellow-600 flex flex-col gap-5 rounded-lg p-5">
-        <div>
-          <input
-            class="w-60 border border-gray-700 px-5 p-2 rounded-xl"
-            type="text"
-            placeholder="Añadir nombre nota"
-          />
-        </div>
-        <div>
-          <input
-            class="w-60 border border-gray-700 px-5 p-2 rounded-xl"
-            type="text"
-            placeholder="Añadir descripcion"
-          />
-        </div>
-        <div
-          class="bg-orange-600 rounded-xl px-5 text-center text-white py-2 cursor-pointer hover:scale-105"
-        >
-          Guardar nota
-        </div>
+    <div class="flex h-screen w-full justify-center flex-col items-center">
+      <div v-if="isLogged">
+        <AddNoteModal />
       </div>
-      
+      <h1 class="text-[1.5rem] text-orange-600 font-bold" v-else>
+        Si no has iniciado sesion no podras ver tus notas.
+      </h1>
     </div>
   </div>
 </template>

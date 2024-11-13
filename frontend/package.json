@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "pinia": "^2.2.6",
     "vue": "^3.4.37",
-    "vue-router": "4",
-    "zustand": "^5.0.1"
+    "vue-router": "4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.2",
