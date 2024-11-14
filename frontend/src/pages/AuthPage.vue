@@ -26,7 +26,6 @@ const {
         @handleCredentials="handleCredentials"
       />
       <LoginForm v-else @toggle-auth="toggleAuthButton" />
-      <p>El email es: {{ email }}</p>
     </div>
   </div>
 </template>
