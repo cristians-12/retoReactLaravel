@@ -3,6 +3,8 @@ import RegisterForm from "../components/auth/RegisterForm.vue";
 import NavBar from "../components/NavBar.vue";
 import LoginForm from "../components/auth/LoginForm.vue";
 import { useAuth } from "../composables/auth/useAuth";
+import { useRouter } from "vue-router";
+import { watch } from "vue";
 
 const {
   authButton,
@@ -12,6 +14,14 @@ const {
   toggleAuthButton,
   handleCredentials,
 } = useAuth();
+
+const router = useRouter(); 
+
+watch(authButton, (newValue) => {
+  if (!newValue) {
+    router.push("/");
+  }
+});
 </script>
 
 <template>

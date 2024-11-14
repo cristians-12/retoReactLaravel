@@ -1,11 +1,14 @@
 // useAuth composable
 import { ref } from "vue";
+import { useToast } from "../toast/useToast";
 
 export function useAuth() {
   const authButton = ref(false);
   const email = ref("");
   const password = ref("");
   const confirm_password = ref("");
+
+  const { errorToast, successToast } = useToast();
 
   const toggleAuthButton = () => {
     authButton.value = !authButton.value;
@@ -21,9 +24,9 @@ export function useAuth() {
 
     if (password.value == confirm_password.value) {
       email.value = emailVal;
-      alert("Las contraseñas deben ser iguales");
+      successToast("Exito, registrandose..");
     } else {
-      alert("Siga");
+      errorToast("Ambas passwords deben ser iguales");
     }
   };
 
