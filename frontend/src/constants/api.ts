@@ -1,0 +1,1 @@
+export const API_URL_REGISTER = 'http://127.0.0.1:8000';

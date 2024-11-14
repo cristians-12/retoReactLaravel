@@ -2,7 +2,6 @@ import { ref } from "vue";
 
 export function useFetch() {
   const data = ref(null);
-  const error = ref(null);
 
   const fetchData = async (url: string): Promise<any> => {
     try {
@@ -13,5 +12,5 @@ export function useFetch() {
     }
   };
 
-  return { data, error, fetchData };
+  return { data, fetchData };
 }
