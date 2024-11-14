@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class NoteController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $notes = Note::all();
         return response()->json($notes);
     }

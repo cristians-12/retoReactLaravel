@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useToast } from "../toast/useToast";
 
 export function useAuth() {
-  const authButton = ref(false);
+  const authButton = ref(true);
   const email = ref("");
   const password = ref("");
   const confirm_password = ref("");

@@ -14,14 +14,6 @@ const {
   toggleAuthButton,
   handleCredentials,
 } = useAuth();
-
-const router = useRouter(); 
-
-watch(authButton, (newValue) => {
-  if (!newValue) {
-    router.push("/");
-  }
-});
 </script>
 
 <template>

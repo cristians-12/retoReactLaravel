@@ -43,10 +43,8 @@ const confirm_pass = ref("");
     </button>
     <p class="text-white">
       Ya tengo una cuenta, quiero
-      <span
-        @click="emit('toggle-auth')"
-        class="text-yellow-400 font-extrabold cursor-pointer"
-        >Iniciar sesion</span
+      <span class="text-yellow-400 cursor-pointer" @click.prevent="emit('toggle-auth')"
+        >iniciar sesion</span
       >
     </p>
   </div>
