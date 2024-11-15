@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserServices
@@ -21,7 +20,7 @@ class UserServices
         return response()->json(['message' => 'No users found', 'success' => false], 404);
     }
 
-    public function createUserService(Request $request)
+    public function createUserService($request)
     {
         $user = new User();
         $user->name = $request->input('name');
@@ -48,8 +47,12 @@ class UserServices
             $user->password = bcrypt($request->password);
         }
         $user->save();
-
         return response()->json(['message' => 'User updated successfully', 'success' => true], 202);
+    }
+
+    public function loginUser($data)
+    {
+        
     }
 
 }

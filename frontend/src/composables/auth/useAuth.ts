@@ -1,8 +1,12 @@
 // useAuth composable
 import { ref } from "vue";
 import { useToast } from "../toast/useToast";
+import { useFetch } from "../useFetch";
+import { API_URL } from "../../constants/api";
 
 export function useAuth() {
+  const { fetchData, data } = useFetch();
+
   const authButton = ref(true);
   const email = ref("");
   const password = ref("");
@@ -30,6 +34,11 @@ export function useAuth() {
     }
   };
 
+  const handleRegister = () => {
+    fetchData(`${API_URL}/api/users`,{method: 'POST', body:'{}'});
+    console.log(data);
+  };
+
   return {
     authButton,
     email,
@@ -37,5 +46,6 @@ export function useAuth() {
     confirm_password,
     toggleAuthButton,
     handleCredentials,
+    handleRegister,
   };
 }

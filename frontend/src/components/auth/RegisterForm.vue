@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { API_URL } from "../../constants/api";
+import { useFetch } from "../../composables/useFetch";
 import { ref } from "vue";
 
 const emit = defineEmits<{
@@ -13,6 +15,7 @@ const emit = defineEmits<{
 const email = ref("");
 const password = ref("");
 const confirm_pass = ref("");
+const { fetchData } = useFetch();
 </script>
 
 <template>
@@ -43,9 +46,12 @@ const confirm_pass = ref("");
     </button>
     <p class="text-white">
       Ya tengo una cuenta, quiero
-      <span class="text-yellow-400 cursor-pointer" @click.prevent="emit('toggle-auth')"
+      <span
+        class="text-yellow-400 cursor-pointer"
+        @click.prevent="emit('toggle-auth')"
         >iniciar sesion</span
       >
     </p>
+    <button @click="fetchData(`${API_URL}/users`)">semen</button>
   </div>
 </template>
