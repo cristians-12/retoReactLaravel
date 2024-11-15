@@ -20,17 +20,21 @@ class UserServices
         return response()->json(['message' => 'No users found', 'success' => false], 404);
     }
 
-        public function createUserService($request)
-        {
-            $user = new User();
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->password = bcrypt($request->input('password'));
-            $user->save();
+    public function createUserService($request)
+    {
+        $data = $request->all();
+        // return response()->json(['data' => $data]);
+        // return $request->input('name');
+        // dd($request);
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
 
-            $token = JWTAuth::fromUser($user);
-            return response()->json(['message' => 'User saved'])->cookie('token', $token, 60);
-        }
+        $token = JWTAuth::fromUser($user);
+        return response()->json(['message' => 'User saved'])->cookie('token', $token, 60);
+    }
 
 
     public function updateUserService($id, $request)

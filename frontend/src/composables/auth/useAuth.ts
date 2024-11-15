@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useToast } from "../toast/useToast";
 import { useFetch } from "../useFetch";
 import { API_URL } from "../../constants/api";
+import { User } from "../../types/user/user.type";
 
 export function useAuth() {
   const { fetchData, data } = useFetch();
@@ -17,7 +18,15 @@ export function useAuth() {
   const toggleAuthButton = () => {
     authButton.value = !authButton.value;
   };
-
+  const handleRegister = (data: User) => {
+    fetchData(`${API_URL}/api/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  };
   const handleCredentials = (
     passwordVal: string,
     password_confirmation: string,
@@ -27,25 +36,15 @@ export function useAuth() {
     confirm_password.value = password_confirmation;
 
     if (password.value == confirm_password.value) {
-      email.value = emailVal;
-      successToast("Exito, registrandose..");
+      handleRegister({
+        name: "prueba",
+        password: passwordVal,
+        email: emailVal,
+      });
+      successToast("Exito en el registro!");
     } else {
       errorToast("Ambas passwords deben ser iguales");
     }
-  };
-
-  const handleRegister = () => {
-    fetchData(`${API_URL}/api/users`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "usuario",
-        email: "usuario@gmail.com",
-        password: "prueba123",
-      }),
-    });
   };
 
   return {

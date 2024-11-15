@@ -44,6 +44,7 @@ const { handleRegister } = useAuth();
     >
       Registrarse
     </button>
+    
     <p class="text-white">
       Ya tengo una cuenta, quiero
       <span
@@ -52,6 +53,5 @@ const { handleRegister } = useAuth();
         >iniciar sesion</span
       >
     </p>
-    <button @click="handleRegister">Probar fetch</button>
   </div>
 </template>
