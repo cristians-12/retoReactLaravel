@@ -6,13 +6,18 @@ export function useFetch() {
 
   const fetchData = async (
     url: string,
-    options: FetchOptions = { method: "GET" }
+    options: FetchOptions
   ): Promise<any> => {
+    console.log(options);
     try {
-      
+      if (options) {
+        options.body = JSON.stringify(options.body);
+        console.log(options.body)
+      }
       const response = await fetch(url, options);
+      console.log(await response.text());
 
-      data.value = await response.json();
+      // data.value = await response.json();
     } catch (err) {
       console.error(err);
     }

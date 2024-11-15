@@ -35,8 +35,17 @@ export function useAuth() {
   };
 
   const handleRegister = () => {
-    fetchData(`${API_URL}/api/users`,{method: 'POST', body:'{}'});
-    console.log(data);
+    fetchData(`${API_URL}/api/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "usuario",
+        email: "usuario@gmail.com",
+        password: "prueba123",
+      }),
+    });
   };
 
   return {

@@ -5,7 +5,8 @@ interface Headers {
 }
 
 export interface FetchOptions {
-  method: string;
+  method?: string;
   headers?: Headers;
-  body?: User | string;
+  body?: string;
+  mode?: RequestMode;
 }
