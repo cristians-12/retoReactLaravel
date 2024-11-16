@@ -8,7 +8,6 @@ export function useFetch() {
     url: string,
     options: FetchOptions
   ): Promise<any> => {
-    // console.log(options);
     try {
       const response = await fetch(url, options);
       data.value = await response.json();

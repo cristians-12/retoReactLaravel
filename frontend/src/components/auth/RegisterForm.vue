@@ -66,7 +66,7 @@ const togglePasswordConfVisibility = () => {
         class="absolute top-2 right-3 text-orange-600"
       />
     </div>
-    <div class="relative">
+    <div class="relative w-full">
       <input
         :type="watchConfirmation ? 'text' : 'password'"
         class="px-4 py-2 rounded-lg w-full"
