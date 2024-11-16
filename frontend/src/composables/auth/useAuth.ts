@@ -12,6 +12,7 @@ export function useAuth() {
   const email = ref("");
   const password = ref("");
   const confirm_password = ref("");
+  const name = ref('');
 
   const { errorToast, successToast } = useToast();
 
@@ -30,14 +31,15 @@ export function useAuth() {
   const handleCredentials = (
     passwordVal: string,
     password_confirmation: string,
-    emailVal: string
+    emailVal: string,
+    nameVal:string
   ) => {
     password.value = passwordVal;
     confirm_password.value = password_confirmation;
 
     if (password.value == confirm_password.value) {
       handleRegister({
-        name: "prueba",
+        name: nameVal,
         password: passwordVal,
         email: emailVal,
       });

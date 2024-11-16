@@ -11,7 +11,6 @@ export function useFetch() {
     // console.log(options);
     try {
       const response = await fetch(url, options);
-      // console.log(await response.json());
       data.value = await response.json();
     } catch (err) {
       console.error(err);

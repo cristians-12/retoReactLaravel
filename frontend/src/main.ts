@@ -8,6 +8,10 @@ import { createPinia } from "pinia";
 import { useCounterStore } from "./store/user/userStore";
 import DashboardPage from "./pages/DashboardPage.vue";
 import ProfilePage from "./pages/ProfilePage.vue";
+import { OhVueIcon, addIcons } from "oh-vue-icons";
+import { IoEyeOutline, BiEyeFill, BiEyeSlashFill } from "oh-vue-icons/icons";
+
+addIcons(IoEyeOutline, BiEyeFill, BiEyeSlashFill);
 
 const routes = [
   { path: "/", component: Home },
@@ -38,4 +42,6 @@ const router = createRouter({
 });
 const pinia = createPinia();
 
-createApp(App).use(router).use(pinia).mount("#app");
+const app = createApp(App);
+
+app.use(router).use(pinia).component("v-icon", OhVueIcon).mount("#app");
