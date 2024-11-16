@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserServices
@@ -25,11 +26,11 @@ class UserServices
         $data = $request->all();
         // return response()->json(['data' => $data]);
         // return $request->input('name');
-        // dd($request);
+        // dd($data['email']);
         $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
+        $user->name = ucfirst(strtolower($data['name']));
+        $user->email = $data['email'];
+        $user->password = bcrypt($data['password']);
         $user->save();
 
         $token = JWTAuth::fromUser($user);
@@ -56,9 +57,25 @@ class UserServices
         return response()->json(['message' => 'User updated successfully', 'success' => true], 202);
     }
 
-    public function loginUser($data)
+    public function loginUserService($data)
     {
+        // Validar si los datos de login (email y password) están presentes
+        if (empty($data['email']) || empty($data['password'])) {
+            return response()->json(['message' => 'Email and password are required'], 400);
+        }
 
+        // Intentar autenticar al usuario con las credenciales
+        $credentials = $data['email'];
+        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+            // Si la autenticación es exitosa, crear y devolver el token
+            $user = Auth::user();  // Obtener el usuario autenticado
+            $token = JWTAuth::fromUser($user);  // Crear un token JWT
+
+            return response()->json(['token' => $token, 'user' => $user]);
+        }
+
+        // Si las credenciales no coinciden, devolver un error
+        return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
 }

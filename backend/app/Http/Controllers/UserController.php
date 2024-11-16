@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\UserServices;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController
 {
     protected $userServices;
 
@@ -32,5 +32,10 @@ class UserController extends Controller
     public function updateUser(Request $request, $id)
     {
         return $this->userServices->updateUserService($id, $request);
+    }
+
+    public function loginUser(Request $request)
+    {
+        return $this->userServices->loginUserService($request);
     }
 }
