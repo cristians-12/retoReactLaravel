@@ -59,23 +59,21 @@ class UserServices
 
     public function loginUserService($data)
     {
-        // Validar si los datos de login (email y password) están presentes
         if (empty($data['email']) || empty($data['password'])) {
             return response()->json(['message' => 'Email and password are required'], 400);
         }
 
         // Intentar autenticar al usuario con las credenciales
-        $credentials = $data['email'];
         if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
             // Si la autenticación es exitosa, crear y devolver el token
             $user = Auth::user();  // Obtener el usuario autenticado
             $token = JWTAuth::fromUser($user);  // Crear un token JWT
 
-            return response()->json(['token' => $token, 'user' => $user]);
+            return response()->json(['token' => $token, 'user' => $user, 'success' => true])->cookie('token', $token, 60);
         }
 
         // Si las credenciales no coinciden, devolver un error
-        return response()->json(['message' => 'Invalid credentials'], 401);
+        return response()->json(['message' => 'Invalid credentials, make sure your credentials match'], 401);
     }
 
 }

@@ -9,7 +9,7 @@ import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
 
 export function useAuth() {
-  const { fetchData, data } = useFetch();
+  const { fetchData } = useFetch();
 
   const authButton: Ref<boolean> = ref(true);
   const email: Ref<string> = ref("");
@@ -63,6 +63,16 @@ export function useAuth() {
     }
   };
 
+  const handleLogin = (data: User) => {
+    fetchData(`${API_URL}/api/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  };
+
   watch(isLogged, (newVal) => {
     if (newVal) {
       router.push("/");
@@ -78,5 +88,6 @@ export function useAuth() {
     toggleAuthButton,
     handleCredentials,
     handleRegister,
+    handleLogin,
   };
 }
