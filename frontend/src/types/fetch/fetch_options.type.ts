@@ -9,4 +9,5 @@ export interface FetchOptions {
   headers?: Headers;
   body?: string;
   mode?: RequestMode;
+  credentials?:RequestCredentials;
 }

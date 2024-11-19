@@ -39,7 +39,7 @@ export function useAuth() {
     });
   };
   // Funcion encargada de manejar las credenciales de usuarios y verificar si ambas contrasenias son iguales
-  const handleCredentials = (
+  const handleCredentials = async (
     passwordVal: string,
     password_confirmation: string,
     emailVal: string,
@@ -50,13 +50,20 @@ export function useAuth() {
 
     if (password.value == confirm_password.value) {
       try {
-        handleRegister({
+        await handleRegister({
           name: nameVal,
           password: passwordVal,
           email: emailVal,
         });
-        successToast("Exito en el registro!");
-        waitTimeLogin(3);
+
+        if (data.value) {
+          if (data.value?.success && data.value.message) {
+            successToast(data.value.message);
+            waitTimeLogin(3);
+          } else {
+            errorToast("There was an error..");
+          }
+        }
       } catch (error) {}
     } else {
       errorToast("Ambas passwords deben ser iguales");
@@ -75,8 +82,6 @@ export function useAuth() {
       });
 
       if (data.value) {
-        console.log(datos);
-        console.log(data.value.success);
         if (data.value.success === true && data.value.message) {
           successToast(data.value.message);
           waitTimeLogin(3);

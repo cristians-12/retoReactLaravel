@@ -10,7 +10,7 @@ export function useFetch() {
     options: FetchOptions
   ): Promise<any> => {
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(url, { ...options, credentials: 'include'});
       data.value = await response.json();
       // console.log(data.value?.success);
     } catch (err) {

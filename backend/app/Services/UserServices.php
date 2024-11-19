@@ -34,7 +34,7 @@ class UserServices
         $user->save();
 
         $token = JWTAuth::fromUser($user);
-        return response()->json(['message' => 'User saved'])->cookie('token', $token, 60);
+        return response()->json(['message' => 'User saved', 'success'=>true])->cookie('token', $token, 60);
     }
 
 
@@ -69,7 +69,17 @@ class UserServices
             $user = Auth::user();  // Obtener el usuario autenticado
             $token = JWTAuth::fromUser($user);  // Crear un token JWT
 
-            return response()->json(['token' => $token, 'user' => $user, 'success' => true, 'message'=>'Sucessful login!'])->cookie('token', $token, 60);
+            return response()->json(['token' => $token, 'user' => $user, 'success' => true, 'message' => 'Sucessful login!'])->cookie(
+                'token',
+                $token,
+                60,
+                '/',
+                null,
+                false,
+                false,
+                false,
+                'none'
+            );
         }
 
         // Si las credenciales no coinciden, devolver un error

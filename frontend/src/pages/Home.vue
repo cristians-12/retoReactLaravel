@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import NavBar from "../components/NavBar.vue";
 import { useCounterStore } from "../store/user/userStore";
 import { storeToRefs } from "pinia";
@@ -7,6 +7,11 @@ import AddNoteModal from "../components/AddNoteModal.vue";
 
 const store = useCounterStore();
 const { isLogged } = storeToRefs(store);
+const { getCookies } = store;
+
+onMounted(() => {
+  getCookies();
+});
 </script>
 
 <template>
