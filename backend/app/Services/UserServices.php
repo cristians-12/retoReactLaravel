@@ -34,7 +34,7 @@ class UserServices
         $user->save();
 
         $token = JWTAuth::fromUser($user);
-        return response()->json(['message' => 'User saved', 'success'=>true])->cookie('token', $token, 60);
+        return response()->json(['message' => 'User saved', 'success' => true])->cookie('token', $token, 60);
     }
 
 
