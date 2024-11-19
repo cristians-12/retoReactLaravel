@@ -69,11 +69,11 @@ class UserServices
             $user = Auth::user();  // Obtener el usuario autenticado
             $token = JWTAuth::fromUser($user);  // Crear un token JWT
 
-            return response()->json(['token' => $token, 'user' => $user, 'success' => true])->cookie('token', $token, 60);
+            return response()->json(['token' => $token, 'user' => $user, 'success' => true, 'message'=>'Sucessful login!'])->cookie('token', $token, 60);
         }
 
         // Si las credenciales no coinciden, devolver un error
-        return response()->json(['message' => 'Invalid credentials, make sure your credentials match'], 401);
+        return response()->json(['message' => 'Invalid credentials, make sure your credentials match', 'success' => false], 401);
     }
 
 }

@@ -1,8 +1,9 @@
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 import { FetchOptions } from "../types/fetch/fetch_options.type";
+import { ResponseType } from "../types/response/response.type";
 
 export function useFetch() {
-  const data = ref(null);
+  const data: Ref<ResponseType | null> = ref(null);
 
   const fetchData = async (
     url: string,
@@ -11,6 +12,7 @@ export function useFetch() {
     try {
       const response = await fetch(url, options);
       data.value = await response.json();
+      // console.log(data.value?.success);
     } catch (err) {
       console.error(err);
     }

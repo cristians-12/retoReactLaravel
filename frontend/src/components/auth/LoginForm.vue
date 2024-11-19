@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useAuth } from "../../composables/auth/useAuth";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 
-const email = ref("");
-const password = ref("");
+const email: Ref<string> = ref("");
+const password: Ref<string> = ref("");
 const emit = defineEmits<{
   (e: "toggle-auth"): void;
 }>();
@@ -26,7 +26,7 @@ const { handleLogin } = useAuth();
       v-model="password"
     />
     <button
-      @click="handleLogin({ email, password })"
+      @click="handleLogin({ email: email.valueOf(), password: password.valueOf() })"
       class="bg-orange-300 text-yellow-900 py-2 rounded-xl"
     >
       Iniciar sesion

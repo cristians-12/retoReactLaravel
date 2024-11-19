@@ -7,9 +7,10 @@ import { User } from "../../types/user/user.type";
 import { useCounterStore } from "../../store/user/userStore";
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
+import { useTimer } from "../timer/useTimer";
 
 export function useAuth() {
-  const { fetchData } = useFetch();
+  const { fetchData, data } = useFetch();
 
   const authButton: Ref<boolean> = ref(true);
   const email: Ref<string> = ref("");
@@ -17,20 +18,19 @@ export function useAuth() {
   const confirm_password: Ref<string> = ref("");
 
   const { errorToast, successToast } = useToast();
-
+  const { waitTimeLogin } = useTimer();
   const router = useRouter();
-
   const store = useCounterStore();
+
   const { isLogged } = storeToRefs(store);
-  const { logUser } = store;
 
   const toggleAuthButton = () => {
     authButton.value = !authButton.value;
   };
 
   // Funcion encargada de hacer solicitud para registrar al usuario
-  const handleRegister = (data: User) => {
-    fetchData(`${API_URL}/api/users`, {
+  const handleRegister = async (data: User) => {
+    await fetchData(`${API_URL}/api/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,21 +56,37 @@ export function useAuth() {
           email: emailVal,
         });
         successToast("Exito en el registro!");
-        logUser();
+        waitTimeLogin(3);
       } catch (error) {}
     } else {
       errorToast("Ambas passwords deben ser iguales");
     }
   };
 
-  const handleLogin = (data: User) => {
-    fetchData(`${API_URL}/api/users/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+  // Funcion encargada de logear usuario
+  const handleLogin = async (datos: User) => {
+    try {
+      await fetchData(`${API_URL}/api/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(datos),
+      });
+
+      if (data.value) {
+        console.log(datos);
+        console.log(data.value.success);
+        if (data.value.success === true && data.value.message) {
+          successToast(data.value.message);
+          waitTimeLogin(3);
+        } else if (data.value.message && data.value.success === false) {
+          errorToast(data.value.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   watch(isLogged, (newVal) => {
