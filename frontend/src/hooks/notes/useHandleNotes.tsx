@@ -26,9 +26,27 @@ const useHandleNotes = () => {
       console.log(error);
     }
   };
+
+  const createNote = async (name: string, description: string) => {
+    try {
+      const respuesta = await fetch(`${API_URL}/api/notes/user`, {
+        method: "post",
+        body: JSON.stringify({ name, description }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const datos = await respuesta.json();
+      console.log(datos);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return {
     getNotes,
     notesData,
+    createNote,
   };
 };
 
