@@ -4,7 +4,10 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
+
 
 class UserServices
 {
@@ -25,15 +28,43 @@ class UserServices
     {
         $data = $request->all();
         // return response()->json(['data' => $data]);
-        // return $request->input('name');
         // dd($data['email']);
-        $user = new User();
-        $user->name = ucfirst(strtolower($data['name']));
-        $user->email = $data['email'];
-        $user->password = bcrypt($data['password']);
-        $user->save();
 
-        $token = JWTAuth::fromUser($user);
+        $validator = Validator::make(
+            $data,
+            [
+                'name' => 'required|string|max:100',
+                'email' => 'unique:users|string|email|required|max:100',
+                'password' => 'string|required|min:8'
+            ]
+        );
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+
+            ;
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => implode(' ', $errors)
+                ]
+            );
+        }
+
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password'])
+        ]);
+        // $user->name = ucfirst(strtolower($data['name']));
+        // $user->email = $data['email'];
+        // $user->password = bcrypt($data['password']);
+        // $user->save();
+
+        // $token = JWTAuth::fromUser($user);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+
         return response()->json(['message' => 'User saved', 'success' => true])->cookie('token', $token, 60);
     }
 
@@ -67,18 +98,20 @@ class UserServices
         if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
             // Si la autenticación es exitosa, crear y devolver el token
             $user = Auth::user();  // Obtener el usuario autenticado
-            $token = JWTAuth::fromUser($user);  // Crear un token JWT
+            // $token = JWTAuth::fromUser($user);  // Crear un token JWT
 
-            return response()->json(['token' => $token, 'user' => $user, 'success' => true, 'message' => 'Sucessful login!'])->cookie(
-                'token',
-                $token,
-                60,
-                '/',
-                null,
-                false,
-                false,
-                false,
-                'none'
+            $token = $data->user()->createToken('auth_token')->plainTextToken;
+
+            return response()->json(['token' => $token, 'user' => $user, 'success' => true, 'message' => 'Successful login!'])->cookie(
+                'auth_token',   // Nombre de la cookie
+                $token,    // Valor de la cookie
+                60,        // Tiempo de expiración en minutos
+                '/',       // Ruta de la cookie
+                null,      // Dominio (null por defecto)
+                true,      // `secure` - Solo enviar con HTTPS
+                true,      // `httpOnly` - Evita acceso desde JavaScript
+                false,     // Sin cifrado directo
+                'None'     // Política SameSite (None para solicitudes cross-site)
             );
         }
 
