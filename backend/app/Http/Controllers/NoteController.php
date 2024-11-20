@@ -13,20 +13,19 @@ class NoteController
     public function __construct(NoteServices $noteServices)
     {
         $this->noteService = $noteServices;
+
     }
     public function index()
     {
-        // $notes = Note::all();
-        // return response()->json($notes);
         return $this->noteService->getAllNotes();
     }
-
-    public function store(Request $request)
+    public function userCreateNote(Request $request)
     {
-        return $this->noteService->createNote();
+        return $this->noteService->createUserNoteService($request);
     }
     public function getUserNote(Request $request)
     {
-        return $this->noteService->getUserNote($request);
+        $orderBy = $request->query('orderBy', 'created_at');
+        return $this->noteService->getUserNotes($orderBy);
     }
 }

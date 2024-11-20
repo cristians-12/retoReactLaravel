@@ -6,21 +6,22 @@ use App\Models\Note;
 
 class NoteServices
 {
-    public function createNote(array $data)
+    public function createUserNoteService($data)
     {
-        return Note::create($data);
-    }
+        // Validar los datos del request
+        $validated = $data->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+        $user = auth()->user();
 
-    public function updateNote(Note $note, array $data)
-    {
-        $note->update($data);
+        $note = new Note();
+        $note->name = $validated['name'];
+        $note->description = $validated['description'];
+        $note->user_id = $user->id;
+        $note->save();
+
         return $note;
-    }
-
-    public function deleteNote(Note $note)
-    {
-
-        return $note->delete();
     }
 
     public function getAllNotes($orderBy = 'created_at')
@@ -28,8 +29,17 @@ class NoteServices
         return Note::orderBy($orderBy)->get();
     }
 
-    public function getUserNote($id){
-        $note = Note::find($id);
-        return $note;
+    public function getUserNotes($orderBy = 'created_at')
+    {
+        $user = auth()->user();
+
+
+        if (!$user) {
+            return response()->json(['message' => 'Usuario no autenticado'], 401);
+        }
+
+        return Note::where('user_id', $user->id)
+            ->orderBy($orderBy)
+            ->get();
     }
 }

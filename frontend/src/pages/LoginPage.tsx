@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputUser from "../components/InputUser";
 import useInput from "../hooks/useInput";
 import useRegister from "../hooks/register/useRegister";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useUserStore from "../store/user/userStore";
 
 const LoginPage = () => {
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const { handleInputChange } = useInput();
   const { handleLogin } = useRegister();
+  const navigate = useNavigate();
+  const { logged } = useUserStore();
+  useEffect(() => {
+    if (!logged) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div className="flex-col flex justify-center items-center">

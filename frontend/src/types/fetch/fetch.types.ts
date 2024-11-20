@@ -9,7 +9,8 @@ interface Headers {
   [key: string]: string;
 }
 
-export interface ResponseInterface{
-  message:string;
-  success:boolean;
+export interface ResponseInterface {
+  message: string;
+  success: boolean;
+  auth_token?: string;
 }

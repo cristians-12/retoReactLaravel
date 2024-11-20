@@ -10,14 +10,16 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/users', 'createUser');
     Route::put('/users/{id}', 'updateUser');
     Route::post('/users/login', 'loginUser');
+
 });
 
 
 
-Route::middleware(['auth::sanctum'])->group(function () {
-    Route::controller(NoteController::class)->group(
-        function () {
-            Route::get('/notes', 'index');
-        }
-    );
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(NoteController::class)->group(function () {
+        Route::get('/notes', 'index');
+        Route::post('/notes', 'userCreateNote');
+        Route::get('/notes/user', 'getUserNote');
+    });
 });
+

@@ -13,7 +13,11 @@ const useRegister = () => {
     if (data) {
       if (data.success) {
         successToast(data.message);
-        logUser();
+        if (data.auth_token) {
+          logUser(data.auth_token);
+        } else {
+          console.log("no token found");
+        }
       } else {
         errorToast(data.message);
       }

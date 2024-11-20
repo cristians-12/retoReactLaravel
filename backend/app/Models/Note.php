@@ -13,7 +13,7 @@ class Note extends Model
     protected $fillable = [
         'name',
         'description',
-        'due_date',
+        'done',
         'created_at',
         'updated_at',
         'user_id',

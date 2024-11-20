@@ -27,9 +27,6 @@ class UserServices
     public function createUserService($request)
     {
         $data = $request->all();
-        // return response()->json(['data' => $data]);
-        // dd($data['email']);
-
         $validator = Validator::make(
             $data,
             [
@@ -52,14 +49,10 @@ class UserServices
         }
 
         $user = User::create([
-            'name' => $data['name'],
+            'name' => ucfirst(strtolower($data['name'])),
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
-        // $user->name = ucfirst(strtolower($data['name']));
-        // $user->email = $data['email'];
-        // $user->password = bcrypt($data['password']);
-        // $user->save();
 
         // $token = JWTAuth::fromUser($user);
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -93,29 +86,24 @@ class UserServices
         if (empty($data['email']) || empty($data['password'])) {
             return response()->json(['message' => 'Email and password are required'], 400);
         }
-
-        // Intentar autenticar al usuario con las credenciales
         if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
-            // Si la autenticación es exitosa, crear y devolver el token
             $user = Auth::user();  // Obtener el usuario autenticado
             // $token = JWTAuth::fromUser($user);  // Crear un token JWT
 
             $token = $data->user()->createToken('auth_token')->plainTextToken;
 
-            return response()->json(['token' => $token, 'user' => $user, 'success' => true, 'message' => 'Successful login!'])->cookie(
-                'auth_token',   // Nombre de la cookie
-                $token,    // Valor de la cookie
+            return response()->json(['auth_token' => $token, 'user' => $user, 'success' => true, 'message' => 'Successful login!'])->cookie(
+                'auth_token',
+                $token,
                 60,        // Tiempo de expiración en minutos
                 '/',       // Ruta de la cookie
-                null,      // Dominio (null por defecto)
-                true,      // `secure` - Solo enviar con HTTPS
-                true,      // `httpOnly` - Evita acceso desde JavaScript
+                null,      // Dominio
+                false,      // `secure`
+                false,      // `httpOnly`
                 false,     // Sin cifrado directo
-                'None'     // Política SameSite (None para solicitudes cross-site)
+                'Lax'     // Política SameSite
             );
         }
-
-        // Si las credenciales no coinciden, devolver un error
         return response()->json(['message' => 'Invalid credentials, make sure your credentials match', 'success' => false], 401);
     }
 
