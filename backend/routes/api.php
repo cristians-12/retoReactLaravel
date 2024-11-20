@@ -12,8 +12,12 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/users/login', 'loginUser');
 });
 
-Route::controller(NoteController::class)->group(
-    function () {
-        Route::get('/notes', 'index');
-    }
-);
+
+
+Route::middleware(['auth::sanctum'])->group(function () {
+    Route::controller(NoteController::class)->group(
+        function () {
+            Route::get('/notes', 'index');
+        }
+    );
+});

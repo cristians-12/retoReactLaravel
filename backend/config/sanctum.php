@@ -46,6 +46,7 @@ return [
     |
     */
 
+
     'expiration' => null,
 
     /*
@@ -79,5 +80,12 @@ return [
         'encrypt_cookies' => Illuminate\Cookie\Middleware\EncryptCookies::class,
         'validate_csrf_token' => Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
     ],
+    'guards' => [
+        // Otros guards aquí
 
+        'sanctum' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+    ]
 ];

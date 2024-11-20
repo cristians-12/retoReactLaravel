@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import InputUser from "../components/InputUser";
 import useInput from "../hooks/useInput";
 import useRegister from "../hooks/register/useRegister";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [password, setPassword] = useState<string>("");
@@ -29,6 +30,12 @@ const LoginPage = () => {
         >
           Iniciar sesion
         </button>
+        <p className="text-white">
+          No tengo una cuenta, deseo{" "}
+          <Link to={"/register"} className="font-bold">
+            registrarme
+          </Link>
+        </p>
       </div>
     </div>
   );

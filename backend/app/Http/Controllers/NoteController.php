@@ -6,7 +6,7 @@ use App\Models\Note;
 use App\Services\NoteServices;
 use Illuminate\Http\Request;
 
-class NoteController extends Controller
+class NoteController
 {
     protected $noteService;
 
