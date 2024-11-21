@@ -1,50 +1,44 @@
-# React + TypeScript + Vite
+# **Frontend: NoteApp**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este documento describe la estructura, características y uso del frontend de **NoteApp**, una aplicación desarrollada con **React.js** para la gestión de usuarios y notas.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **🛠 Tecnologías Usadas**
 
-## Expanding the ESLint configuration
+- **React.js**: Biblioteca para construir interfaces de usuario.
+- **Vite**: Herramienta de construcción rápida para React.
+- **React Router**: Navegación entre páginas.
+- **Zustand**: Gestión de estado global.
+- **TypeScript**: Tipado estático para mejorar la calidad del código.
+- **CSS**: Diseño visual.
+- **React Icons**: Para agregar figuras e iconos.
+- **React Hot Toast**: Uso de notificaciones para el cliente en el flujo de uso de la aplicacion.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## **🚀 Características**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Registro e inicio de sesión de usuarios.
+- Gestión de notas (crear, editar, eliminar).
+- Uso de modales y componentes reutilizables.
+- Autenticación con **JWT** a través de Laravel Sanctum.
+- Gestión de estado con **Zustand**.
+- Diseño responsivo.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## **📂 Estructura del Proyecto**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+```plaintext
+src/
+├── layout/            # Componentes que estructuran la aplicación
+│   ├── Navbar.tsx     # Barra de navegación principal
+├── components/        # Componentes reutilizables
+│   ├── notes/         # Componentes para gestionar notas
+├── hooks/             # Custom hooks para lógica específica
+├── pages/             # Vistas principales de la aplicación
+├── store/             # Gestión de estado con Zustand
+├── types/             # Definición de tipos de TypeScript
+├── pages/HomePage.tsx # Página de inicio de la aplicación
+└── main.tsx           # Configuración inicial de React y Vite

@@ -24,7 +24,7 @@ Este proyecto es una aplicación web que permite a los usuarios crear, editar y 
 
 1. **Node.js** (v16 o superior) , **pnpm** y **npm** instalados.
 2. **Composer** instalado para la gestión de dependencias de PHP.
-3. Un servidor local para PHP (puedes usar **XAMPP**, ).
+3. Un servidor local para PHP (puedes usar **XAMPP**).
 4. **MySQL** o cualquier otra base de datos compatible configurada.
 
 ---
@@ -38,6 +38,9 @@ Este proyecto es una aplicación web que permite a los usuarios crear, editar y 
    git clone <URL_DEL_REPOSITORIO>
    cd backend
    composer install
+   php artisan migrate
+   php artisan serve
+
    Debe modificarse o crearse un .env en el backend para realizar las migraciones y asociarse una base de datos compatible.
 
    Posteriormente debe seguirse:
