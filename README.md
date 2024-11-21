@@ -38,7 +38,8 @@ Este proyecto es una aplicación web que permite a los usuarios crear, editar y 
    git clone <URL_DEL_REPOSITORIO>
    cd backend
    composer install
-   Debe modificarse o crearse un .env en el backend para realizar las migraciones
+   Debe modificarse o crearse un .env en el backend para realizar las migraciones y asociarse una base de datos compatible.
 
+   Posteriormente debe seguirse:
    cd frontend
    pnpm install
