@@ -1,16 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useUserStore from "../store/user/userStore";
 import { useNavigate } from "react-router-dom";
 import useHandleNotes from "../hooks/notes/useHandleNotes";
 import { NoteInterface } from "../types/note.type";
 import NoteCard from "../components/notes/NoteCard";
 import useReloadStore from "../store/reload/reloadStore";
+import NoteEditModal from "../components/notes/NoteEditModal";
 
 const ProfilePage = () => {
   const { logged } = useUserStore();
   const navigate = useNavigate();
   const { getNotes, notesData } = useHandleNotes();
   const { reload } = useReloadStore();
+  const [visible, setVisible] = useState<boolean>(false);
 
   useEffect(() => {
     if (!logged) {
@@ -31,6 +33,7 @@ const ProfilePage = () => {
               description={note.description}
               done={note.done}
               id={note.id}
+              setVisible={setVisible}
             />
           ))}
         </ul>
@@ -39,6 +42,7 @@ const ProfilePage = () => {
           No hay notas disponibles.
         </p>
       )}
+      {visible && <NoteEditModal setVisible={setVisible} />}
     </>
   );
 };

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputUser from "../components/InputUser";
 import useInput from "../hooks/useInput";
 import useRegister from "../hooks/register/useRegister";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useUserStore from "../store/user/userStore";
+import useReloadStore from "../store/reload/reloadStore";
 
 const RegisterPage = () => {
   const [password, setPassword] = useState<string>("");
@@ -11,6 +13,19 @@ const RegisterPage = () => {
 
   const { handleInputChange } = useInput();
   const { handleRegister } = useRegister();
+
+  const { logged } = useUserStore();
+  const navigate = useNavigate();
+
+  const { reload } = useReloadStore();
+
+  useEffect(() => {
+    if (!logged) {
+      navigate("/register");
+    } else {
+      navigate("/");
+    }
+  }, [reload]);
 
   return (
     <div className="flex flex-col items-center justify-center">

@@ -1,38 +1,45 @@
-# Prueba Técnica: Creación de Usuarios y Notas
+# **NoteApp: Gestión de Notas y Usuarios**
 
-Este proyecto consiste en una aplicación desarrollada con **React.js** (Frontend) y **Laravel 11** (Backend). La aplicación permite la **gestión de usuarios** y la creación de **notas asociadas a cada usuario**.
-
----
-
-## 🚀 Tecnologías Utilizadas
-
-### Frontend
-- **React.js** con Vite
-- **React Router** para el enrutamiento
-- **CSS Modules** para estilos (opcional)
-
-### Backend
-- **Laravel 11**
-- **Sanctum** para autenticación
-- **MySQL** como base de datos
-- **PHP 8.2**
+Este proyecto es una aplicación web que permite a los usuarios crear, editar y gestionar notas de manera eficiente. Desarrollada con **React.js** en el frontend y **Laravel 11** en el backend, esta aplicación proporciona un entorno seguro para gestionar tareas y anotaciones personales. Además, la autenticación está asegurada a través de **Sanctum** para una experiencia segura.
 
 ---
 
-## 🔧 Requisitos Previos
+## 🚀 **Tecnologías Utilizadas**
 
-1. **Node.js** y **npm** instalados.
-2. **Composer** instalado.
+### **Frontend**
+- **React.js** (usando Vite para una configuración más rápida)
+- **React Router** para la navegación entre vistas
+- **Zustand** para el manejo de estados
+- **TailwindCSS** para el diseño y la estilización
+- **Axios** para realizar peticiones HTTP
+
+### **Backend**
+- **Laravel 11** como framework backend
+- **Sanctum** para la autenticación de usuarios
+- **MySQL** como sistema de gestión de bases de datos
+- **PHP 8.2** o superior
+
+---
+
+## 🔧 **Requisitos Previos**
+
+1. **Node.js** (v16 o superior) , **pnpm** y **npm** instalados.
+2. **Composer** instalado para la gestión de dependencias de PHP.
 3. Un servidor local para PHP (puedes usar **XAMPP**, **Laravel Valet**, o similar).
 4. **MySQL** o cualquier otra base de datos compatible configurada.
 
 ---
 
-## ⚙️ Instalación y Configuración
+## ⚙️ **Instalación y Configuración**
 
-### Backend (Laravel)
+### **Backend (Laravel)**
 
-1. Clona el repositorio:
+1. **Clonar el repositorio**:
    ```bash
    git clone <URL_DEL_REPOSITORIO>
    cd backend
+   composer install
+   Debe modificarse o crearse un .env en el backend para realizar las migraciones
+
+   cd frontend
+   pnpm install

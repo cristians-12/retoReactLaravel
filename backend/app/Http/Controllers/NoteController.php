@@ -33,4 +33,9 @@ class NoteController
     {
         return $this->noteService->deleteUserNoteService($noteId);
     }
+
+    public function updateNote(Request $request, $noteId)
+    {
+        return $this->noteService->updateUserNoteService($noteId, $request);
+    }
 }

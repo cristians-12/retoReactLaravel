@@ -1,14 +1,24 @@
 import React from "react";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import useHandleNotes from "../../hooks/notes/useHandleNotes";
+import useNoteStore from "../../store/notes/noteStore";
 
 interface NoteCardProps {
   name: string;
   description: string;
   done: number;
   id: number;
+  setVisible: (value: boolean) => void;
 }
-const NoteCard: React.FC<NoteCardProps> = ({ name, description, done, id }) => {
+
+const NoteCard: React.FC<NoteCardProps> = ({
+  name,
+  description,
+  done,
+  id,
+  setVisible,
+}) => {
+  const { setNote } = useNoteStore();
   const { deleteNote } = useHandleNotes();
 
   return (
@@ -27,9 +37,18 @@ const NoteCard: React.FC<NoteCardProps> = ({ name, description, done, id }) => {
       <p className="mt-3 font-bold">
         {done == 0 ? "Tarea por realizar" : "Tarea realizada"}
       </p>
-      <div className="mt-3">
+      <div className="mt-3 flex items-center gap-5">
         <div onClick={() => deleteNote(id)} className="cursor-pointer">
           <FaTrashAlt size={25} />
+        </div>
+        <div className="cursor-pointer">
+          <FaEdit
+            onClick={() => {
+              setVisible(true);
+              setNote(name, description, id, done);
+            }}
+            size={25}
+          />
         </div>
       </div>
     </div>

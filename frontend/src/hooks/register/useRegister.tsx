@@ -3,16 +3,20 @@ import { API_URL } from "../../constants/api";
 import useToast from "../toast/useToast";
 import { useEffect } from "react";
 import useUserStore from "../../store/user/userStore";
+import useReloadStore from "../../store/reload/reloadStore";
 
 const useRegister = () => {
   const { fetchRequest, data } = useFetch();
   const { successToast, errorToast } = useToast();
   const { logUser } = useUserStore();
 
+  const { changeReload } = useReloadStore();
+
   useEffect(() => {
     if (data) {
       if (data.success) {
         successToast(data.message);
+        changeReload();
         if (data.auth_token) {
           logUser(data.auth_token);
         } else {

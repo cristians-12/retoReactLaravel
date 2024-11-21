@@ -4,6 +4,7 @@ import useUserStore from "../../store/user/userStore";
 import { NoteInterface } from "../../types/note.type";
 import useToast from "../toast/useToast";
 import useReloadStore from "../../store/reload/reloadStore";
+import useNoteStore from "../../store/notes/noteStore";
 
 const useHandleNotes = () => {
   const { token } = useUserStore();
@@ -11,6 +12,8 @@ const useHandleNotes = () => {
 
   const [notesData, setNotesData] = useState<NoteInterface[]>([]);
   const { changeReload } = useReloadStore();
+
+  const { id, done, description, name } = useNoteStore();
 
   // Función para obtener las notas
   const getNotes = async () => {
@@ -60,7 +63,7 @@ const useHandleNotes = () => {
     }
   };
 
-  // Función para eliminar una nota
+  // Función para eliminar una notaz
   const deleteNote = async (id: number) => {
     try {
       const respuesta = await fetch(`${API_URL}/api/notes/${id}`, {
@@ -78,7 +81,30 @@ const useHandleNotes = () => {
       } else {
         errorToast(datos.message);
       }
-      console.log(datos);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateNote = async () => {
+    try {
+      const respuesta = await fetch(`${API_URL}/api/notes/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: name,
+          description: description,
+          done: done,
+        }),
+      });
+      const datos = await respuesta.json();
+      if (datos.success == true) {
+        successToast(datos.message);
+        changeReload();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -89,6 +115,7 @@ const useHandleNotes = () => {
     notesData,
     createNote,
     deleteNote,
+    updateNote,
   };
 };
 

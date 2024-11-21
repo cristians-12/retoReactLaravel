@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/notes', 'userCreateNote');
         Route::get('/notes/user', 'getUserNote');
         Route::delete('/notes/{id}', 'deleteNote');
+        Route::put('/notes/{id}', 'updateNote');
     });
 });
 

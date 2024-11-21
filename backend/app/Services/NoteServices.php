@@ -59,4 +59,31 @@ class NoteServices
 
         return response()->json(['success' => true, 'message' => 'Note deleted successfully']);
     }
+
+    public function updateUserNoteService($noteId, $data)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return response()->json(['message' => 'User not authorized', 'success' => false], 401);
+        }
+
+        $note = Note::where('id', $noteId)->where('user_id', $user->id)->first();
+
+        if (!$note) {
+            return response()->json(['message' => 'Note not found', 'success' => false], 404);
+        }
+
+        $validated = $data->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'done' => 'boolean|nullable'
+        ]);
+
+        $note->name = $validated['name'];
+        $note->description = $validated['description'];
+        $note->done = $validated['done'] ?? 0;
+        $note->save();
+
+        return response()->json(['data' => $note, 'success' => true, 'message' => 'Note updated successfully']);
+    }
 }

@@ -4,6 +4,7 @@ import useInput from "../hooks/useInput";
 import useRegister from "../hooks/register/useRegister";
 import { Link, useNavigate } from "react-router-dom";
 import useUserStore from "../store/user/userStore";
+import useReloadStore from "../store/reload/reloadStore";
 
 const LoginPage = () => {
   const [password, setPassword] = useState<string>("");
@@ -12,11 +13,14 @@ const LoginPage = () => {
   const { handleLogin } = useRegister();
   const navigate = useNavigate();
   const { logged } = useUserStore();
+  const { reload } = useReloadStore();
   useEffect(() => {
     if (!logged) {
       navigate("/login");
+    } else {
+      navigate("/");
     }
-  }, []);
+  }, [reload]);
 
   return (
     <div className="flex-col flex justify-center items-center">
