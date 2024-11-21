@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 const useNotePopUp = () => {
-  const [name, setName] = useState<string | null>(null);
-  const [description, setDescription] = useState<string | null>(null);
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };

@@ -4,7 +4,7 @@ import { Toaster } from "react-hot-toast";
 import useUserStore from "../store/user/userStore";
 import AgregarButton from "../components/AgregarButton";
 import { useState } from "react";
-import NotePopUp from "../components/NotePopUp";
+import NotePopUp from "../components/notes/NotePopUp";
 
 const Layout = () => {
   const { logged } = useUserStore();

@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Facades\JWTAuth;
+// use Tymon\JWTAuth\Facades\JWTAuth;
 
 
 class UserServices
@@ -58,7 +58,17 @@ class UserServices
         $token = $user->createToken('auth_token')->plainTextToken;
 
 
-        return response()->json(['message' => 'User saved', 'success' => true])->cookie('token', $token, 60);
+        return response()->json(['message' => 'User saved', 'success' => true])->cookie(
+            'auth_token',
+            $token,
+            60,
+            '/',
+            null,
+            false,
+            false,
+            false,
+            'Lax'
+        );
     }
 
 
@@ -87,8 +97,8 @@ class UserServices
             return response()->json(['message' => 'Email and password are required'], 400);
         }
         if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
-            $user = Auth::user();  // Obtener el usuario autenticado
-            // $token = JWTAuth::fromUser($user);  // Crear un token JWT
+            $user = Auth::user();
+            // $token = JWTAuth::fromUser($user); 
 
             $token = $data->user()->createToken('auth_token')->plainTextToken;
 

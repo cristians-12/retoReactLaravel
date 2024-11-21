@@ -28,4 +28,9 @@ class NoteController
         $orderBy = $request->query('orderBy', 'created_at');
         return $this->noteService->getUserNotes($orderBy);
     }
+
+    public function deleteNote($noteId)
+    {
+        return $this->noteService->deleteUserNoteService($noteId);
+    }
 }

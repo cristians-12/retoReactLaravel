@@ -1,7 +1,7 @@
 import React from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import useNotePopUp from "../hooks/notes/useNotePopUp";
-import useHandleNotes from "../hooks/notes/useHandleNotes";
+import useNotePopUp from "../../hooks/notes/useNotePopUp";
+import useHandleNotes from "../../hooks/notes/useHandleNotes";
 
 interface NotePopUpProps {
   setVisible: (value: boolean) => void;
@@ -32,7 +32,10 @@ const NotePopUp: React.FC<NotePopUpProps> = ({ setVisible }) => {
         />
 
         <button
-          onClick={() => createNote(name, description)}
+          onClick={() => {
+            createNote(name, description);
+            setVisible(false);
+          }}
           className="bg-blue-500 w-fit rounded-lg text-white px-3 py-2"
         >
           Agregar nota a mi lista

@@ -13,13 +13,12 @@ Route::controller(UserController::class)->group(function () {
 
 });
 
-
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(NoteController::class)->group(function () {
         Route::get('/notes', 'index');
         Route::post('/notes', 'userCreateNote');
         Route::get('/notes/user', 'getUserNote');
+        Route::delete('/notes/{id}', 'deleteNote');
     });
 });
 
